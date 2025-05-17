@@ -1,6 +1,13 @@
 <h1>Gestión de Gastos</h1>
 
+<!-- Componente Formulario para Añadir Gastos -->
 <app-gasto-form></app-gasto-form>
+
+<!-- Componente Filtros -->
 <app-gastos-filtros (filtrosAplicados)="aplicarFiltros($event)"></app-gastos-filtros>
+
+<!-- Componente Estadísticas -->
 <app-estadisticas></app-estadisticas>
+
+<!-- Componente Lista de Gastos con Filtros Aplicados -->
 <app-gastos-list [filtros]="filtrosAplicados"></app-gastos-list>
