@@ -1,10 +1,32 @@
-<h2>Lista de Gastos</h2>
+<h2>Filtros de Gastos</h2>
 
-<ul>
-  <li *ngFor="let gasto of gastosFiltrados">
-    {{ gasto.descripcion }} - {{ gasto.importe | currency:'EUR' }}
-    <button (click)="eliminarGasto(gasto.id)">Eliminar</button>
-  </li>
-</ul>
+<!-- Filtro por categoría -->
+<div>
+  <label for="categoria">Categoría:</label>
+  <select id="categoria" [(ngModel)]="categoriaSeleccionada">
+    <option value="">Todas</option>
+    <option value="Alimentación">Alimentación</option>
+    <option value="Transporte">Transporte</option>
+    <option value="Ocio">Ocio</option>
+    <option value="Salud">Salud</option>
+    <option value="Otros">Otros</option>
+  </select>
+</div>
 
-<p *ngIf="gastosFiltrados.length === 0">No hay gastos que coincidan con los filtros aplicados.</p>
+<!-- Filtro por rango de fechas -->
+<div>
+  <label for="fechaInicio">Desde:</label>
+  <input id="fechaInicio" type="date" [(ngModel)]="fechaInicio" />
+
+  <label for="fechaFin">Hasta:</label>
+  <input id="fechaFin" type="date" [(ngModel)]="fechaFin" />
+</div>
+
+<!-- Filtro por búsqueda de descripción -->
+<div>
+  <label for="busqueda">Buscar por descripción:</label>
+  <input id="busqueda" type="text" [(ngModel)]="busqueda" />
+</div>
+
+<!-- Botón para aplicar los filtros -->
+<button (click)="aplicarFiltros()">Aplicar Filtros</button>

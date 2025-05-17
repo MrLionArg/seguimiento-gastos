@@ -1,9 +1,14 @@
 <h2>Lista de Gastos</h2>
 
-<ul>
+<!-- Si hay gastos, los mostramos en una lista -->
+<ul *ngIf="gastosFiltrados.length > 0; else sinGastos">
   <li *ngFor="let gasto of gastosFiltrados">
-    {{ gasto.descripcion }} - {{ gasto.importe | currency:'EUR' }}
+    {{ gasto.descripcion }} - {{ gasto.importe | currency: 'EUR' }}
+    <button (click)="eliminarGasto(gasto.id)">Eliminar</button>
   </li>
 </ul>
 
-<p *ngIf="gastosFiltrados.length === 0">No hay gastos que coincidan con los filtros aplicados.</p>
+<!-- Plantilla alternativa cuando no hay gastos -->
+<ng-template #sinGastos>
+  <p>No hay gastos registrados aún.</p>
+</ng-template>

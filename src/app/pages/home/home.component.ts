@@ -4,12 +4,10 @@ import { GastosListComponent } from '../../components/gastos-list/gastos-list.co
 import { EstadisticasComponent } from '../../components/estadisticas/estadisticas.component';
 import { GastosFiltrosComponent } from '../../components/gastos-filtros/gastos-filtros.component';
 
-/* Componente Principal - Home
-                        - Muestra el formulario para añadir gastos
-                        - Muestra las estadísticas de gastos
-                        - Muestra los filtros y la lista de gastos
+/**
+ * Componente Home
+ * - Componente principal de la aplicación.
  */
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -23,11 +21,16 @@ import { GastosFiltrosComponent } from '../../components/gastos-filtros/gastos-f
   ]
 })
 export class HomeComponent {
-  // Objeto que almacenará los filtros aplicados
+
+  // Objeto que almacena los filtros aplicados
   filtrosAplicados: any = {};
 
-  // Recibe los filtros aplicados y los almacena
+  /**
+   * Método para recibir los filtros aplicados
+   * @param filtros - Objeto con los filtros
+   */
   aplicarFiltros(filtros: any): void {
+    console.log('Filtros recibidos en HomeComponent:', filtros);
     this.filtrosAplicados = filtros;
   }
 }

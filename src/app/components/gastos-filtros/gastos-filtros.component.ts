@@ -1,14 +1,17 @@
 // Importamos los módulos necesarios de Angular
 import { Component, EventEmitter, Output } from '@angular/core';
-import { NgIf, NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * Componente Filtros de Gastos
+ * - Permite aplicar filtros por categoría, rango de fechas y búsqueda.
+ */
 @Component({
-  selector: 'app-gastos-filtros',  // Selector del componente
-  standalone: true,  // Componente independiente
-  templateUrl: './gastos-filtros.component.html',  // Ruta del HTML
-  styleUrls: ['./gastos-filtros.component.css'],  // Ruta del CSS
-  imports: [FormsModule, NgIf, NgForOf]  // Importamos FormsModule, NgIf y NgForOf
+  selector: 'app-gastos-filtros',
+  standalone: true,
+  templateUrl: './gastos-filtros.component.html',
+  styleUrls: ['./gastos-filtros.component.css'],
+  imports: [FormsModule]  // Eliminamos NgIf y NgForOf porque no se usan
 })
 export class GastosFiltrosComponent {
 
@@ -21,8 +24,10 @@ export class GastosFiltrosComponent {
   fechaFin: string = '';
   busqueda: string = '';
 
-  // Método para aplicar los filtros. Emite los filtros al componente padre.
-   
+  /**
+   * Método para aplicar los filtros.
+   * Emite los filtros al componente padre.
+   */
   aplicarFiltros(): void {
     console.log('Filtros aplicados:', {
       categoria: this.categoriaSeleccionada,
@@ -39,4 +44,3 @@ export class GastosFiltrosComponent {
     });
   }
 }
-
