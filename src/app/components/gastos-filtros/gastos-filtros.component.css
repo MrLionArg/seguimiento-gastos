@@ -1,0 +1,13 @@
+.filtros-container {
+  background-color: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.filtros-container div {
+  display: flex;
+  flex-direction: column;
+}

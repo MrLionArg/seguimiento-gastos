@@ -1,0 +1,6 @@
+<h1>Gestión de Gastos</h1>
+
+<app-gasto-form></app-gasto-form>
+<app-gastos-filtros (filtrosAplicados)="aplicarFiltros($event)"></app-gastos-filtros>
+<app-estadisticas></app-estadisticas>
+<app-gastos-list [filtros]="filtrosAplicados"></app-gastos-list>

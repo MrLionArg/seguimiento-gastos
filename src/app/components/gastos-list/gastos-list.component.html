@@ -1,0 +1,8 @@
+<h2>Lista de Gastos</h2>
+
+<ul>
+  <li *ngFor="let gasto of gastos">
+    {{ gasto.descripcion }} - {{ gasto.importe | currency:'EUR' }}
+    <button (click)="eliminarGasto(gasto.id)">Eliminar</button>
+  </li>
+</ul>

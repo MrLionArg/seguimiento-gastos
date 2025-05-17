@@ -1,0 +1,34 @@
+<h2>Añadir Gasto</h2>
+<form [formGroup]="gastoForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="descripcion">Descripción:</label>
+    <input id="descripcion" formControlName="descripcion" />
+    <span *ngIf="gastoForm.controls['descripcion'].invalid && gastoForm.controls['descripcion'].touched">
+      Descripción requerida
+    </span>
+  </div>
+
+  <div>
+    <label for="categoria">Categoría:</label>
+    <select id="categoria" formControlName="categoria">
+      <option value="">Selecciona una categoría</option>
+      <option value="Alimentación">Alimentación</option>
+      <option value="Transporte">Transporte</option>
+      <option value="Ocio">Ocio</option>
+      <option value="Salud">Salud</option>
+      <option value="Otros">Otros</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="importe">Importe:</label>
+    <input id="importe" type="number" formControlName="importe" />
+  </div>
+
+  <div>
+    <label for="fecha">Fecha:</label>
+    <input id="fecha" type="date" formControlName="fecha" />
+  </div>
+
+  <button type="submit" [disabled]="gastoForm.invalid">Añadir Gasto</button>
+</form>
