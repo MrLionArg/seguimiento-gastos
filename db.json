@@ -1,0 +1,39 @@
+{
+  "gastos": [
+    {
+      "id": "3438",
+      "descripcion": "asdadasasd",
+      "categoria": "Alimentación",
+      "importe": 123,
+      "fecha": "2025-05-15"
+    },
+    {
+      "id": "a46c",
+      "descripcion": "12123123",
+      "categoria": "Transporte",
+      "importe": 123,
+      "fecha": "2025-05-23"
+    },
+    {
+      "id": "d7a4",
+      "descripcion": "1232131",
+      "categoria": "Transporte",
+      "importe": 123,
+      "fecha": "2025-05-07"
+    },
+    {
+      "id": "0403",
+      "descripcion": "123123",
+      "categoria": "Salud",
+      "importe": 123213,
+      "fecha": "2025-05-31"
+    },
+    {
+      "id": "7007",
+      "descripcion": "12312",
+      "categoria": "Alimentación",
+      "importe": 11,
+      "fecha": "2025-05-28"
+    }
+  ]
+}

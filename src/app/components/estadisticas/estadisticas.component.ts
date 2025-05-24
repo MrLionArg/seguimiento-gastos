@@ -1,35 +1,57 @@
-import { Component, inject } from '@angular/core';
-import { CurrencyPipe, NgIf } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NgIf, CurrencyPipe } from '@angular/common';
 import { GastosService, Gasto } from '../../core/services/gastos.service';
 
-  // Componente Estadísticas Muestra el total gastado, el promedio de gastos y el número de gastos.
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
+  imports: [NgIf, CurrencyPipe],
   templateUrl: './estadisticas.component.html',
-  styleUrls: ['./estadisticas.component.css'],
-  imports: [CurrencyPipe, NgIf]  // Importamos CurrencyPipe para formatear moneda y NgIf para condicionales
+  styleUrls: ['./estadisticas.component.css']
 })
-export class EstadisticasComponent {
+export class EstadisticasComponent implements OnInit, OnDestroy {
+  gastos: Gasto[] = [];
+  totalMensual: number = 0;
+  gastoReciente: Gasto | null = null;
+  promedioDiario: number = 0;
 
-  // Inyección del servicio de gastos
-  private gastosService = inject(GastosService);
+  private sub!: Subscription;
 
-  // Array de gastos que obtenemos del servicio
-  gastos: Gasto[] = this.gastosService.getGastos();
+  constructor(private gastosService: GastosService) {}
 
-  // Calcula el total gastado sumando todos los importes
-  get totalGastos(): number {
-    return this.gastos.reduce((total, gasto) => total + gasto.importe, 0);
+  ngOnInit(): void {
+    // Cálculo de lista de gastos para estadísticas
+    this.sub = this.gastosService.gastos$.subscribe(lista => {
+      this.gastos = lista;
+      this.calcularEstadisticas();
+    });
   }
 
-  // Calcula el gasto promedio dividiendo el total (de gastos) por la cantidad (de gastos en length.)
-  get gastoPromedio(): number {
-    return this.gastos.length ? this.totalGastos / this.gastos.length : 0;
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
-  // Devuelve el número total de gastos registrados
-  get numGastos(): number {
-    return this.gastos.length;
+  private calcularEstadisticas(): void {
+    if (this.gastos.length === 0) {
+      this.totalMensual = 0;
+      this.gastoReciente = null;
+      this.promedioDiario = 0;
+      return;
+    }
+
+    // Total del mes actual
+    const mesActual = new Date().getMonth();
+    const gastosDelMes = this.gastos.filter(g => new Date(g.fecha).getMonth() === mesActual);
+    this.totalMensual = gastosDelMes.reduce((sum, g) => sum + g.importe, 0);
+
+    // Gasto más reciente
+    this.gastoReciente = this.gastos.reduce((latest, g) =>
+      new Date(g.fecha) > new Date(latest.fecha) ? g : latest
+    , this.gastos[0]);
+
+    // Promedio diario (solo días con al menos un gasto)
+    const diasConGasto = new Set(this.gastos.map(g => g.fecha)).size;
+    this.promedioDiario = +(this.gastos.reduce((sum, g) => sum + g.importe, 0) / diasConGasto).toFixed(2);
   }
 }

@@ -1,14 +1,39 @@
 <h2>Lista de Gastos</h2>
 
-<!-- Si hay gastos, los mostramos en una lista -->
+<!-- Formulario de filtros reactivo -->
+<form [formGroup]="filterForm" class="filtros">
+  <input
+    formControlName="busqueda"
+    placeholder="🔍 Buscar descripción"
+  />
+
+  <select formControlName="categoria">
+    <option value="">Todas las categorías</option>
+    <option value="Alimentación">Alimentación</option>
+    <option value="Transporte">Transporte</option>
+    <option value="Ocio">Ocio</option>
+    <option value="Salud">Salud</option>
+    <option value="Otros">Otros</option>
+  </select>
+
+  <label>
+    Desde:
+    <input type="date" formControlName="fechaInicio" />
+  </label>
+
+  <label>
+    Hasta:
+    <input type="date" formControlName="fechaFin" />
+  </label>
+</form>
+
 <ul *ngIf="gastosFiltrados.length > 0; else sinGastos">
-  <li *ngFor="let gasto of gastosFiltrados">
-    {{ gasto.descripcion }} - {{ gasto.importe | currency: 'EUR' }}
+  <li *ngFor="let gasto of gastosFiltrados; trackBy: trackById">
+    {{ gasto.descripcion }} — {{ gasto.importe | currency:'EUR' }}
     <button (click)="eliminarGasto(gasto.id)">Eliminar</button>
   </li>
 </ul>
 
-<!-- Plantilla alternativa cuando no hay gastos -->
 <ng-template #sinGastos>
-  <p>No hay gastos registrados aún.</p>
+  <p>No hay gastos que coincidan con los filtros.</p>
 </ng-template>

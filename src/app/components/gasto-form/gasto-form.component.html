@@ -1,18 +1,18 @@
 <h2>Añadir Gasto</h2>
 
-<!-- Formulario Reactivo para Añadir Gasto -->
+<!-- Formulario Reactivo para añadir Gastos -->
 <form [formGroup]="gastoForm" (ngSubmit)="onSubmit()">
-  <!-- Campo Descripción -->
+  <!-- Campo de Descripción -->
   <div>
     <label for="descripcion">Descripción:</label>
     <input id="descripcion" formControlName="descripcion" />
-    <!-- Mensaje de validación -->
+    <!-- Mensaje de validación para error -->
     <span *ngIf="gastoForm.controls['descripcion'].invalid && gastoForm.controls['descripcion'].touched">
       La descripción es obligatoria.
     </span>
   </div>
 
-  <!-- Campo Categoría -->
+  <!-- Campo de Categoría -->
   <div>
     <label for="categoria">Categoría:</label>
     <select id="categoria" formControlName="categoria">
@@ -25,18 +25,18 @@
     </select>
   </div>
 
-  <!-- Campo Importe -->
+  <!-- Campo de Importe -->
   <div>
     <label for="importe">Importe:</label>
     <input id="importe" type="number" formControlName="importe" />
   </div>
 
-  <!-- Campo Fecha -->
+  <!-- Campo de Fecha -->
   <div>
     <label for="fecha">Fecha:</label>
     <input id="fecha" type="date" formControlName="fecha" />
   </div>
 
-  <!-- Botón Enviar -->
+  <!-- Botón para Enviar -->
   <button type="submit" [disabled]="gastoForm.invalid">Añadir Gasto</button>
 </form>

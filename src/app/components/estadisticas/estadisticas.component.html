@@ -1,15 +1,14 @@
 <h2>Estadísticas de Gastos</h2>
 
-<!-- Si hay gastos registrados, mostramos las estadísticas -->
-
-<div *ngIf="gastos.length > 0; else noGastos">
-  <p>Total Gastado: {{ totalGastos | currency: 'EUR' }}</p>
-  <p>Gasto Promedio: {{ gastoPromedio | currency: 'EUR' }}</p>
-  <p>Número de Gastos: {{ numGastos }}</p>
+<div *ngIf="gastos.length > 0; else sinDatos">
+  <p><strong>Total gastado este mes:</strong> {{ totalMensual | currency:'EUR' }}</p>
+  <p><strong>Gasto más reciente:</strong>
+    {{ gastoReciente?.descripcion }} — 
+    {{ gastoReciente?.importe | currency:'EUR' }} ({{ gastoReciente?.fecha }})
+  </p>
+  <p><strong>Promedio diario:</strong> {{ promedioDiario | currency:'EUR' }}</p>
 </div>
 
-<!-- Plantilla alternativa para cuando no hay gastos registrados -->
- 
-<ng-template #noGastos>
-  <p>No hay gastos registrados aún.</p>
+<ng-template #sinDatos>
+  <p>Aún no hay datos para mostrar estadísticas.</p>
 </ng-template>

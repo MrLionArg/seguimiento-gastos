@@ -1,9 +1,7 @@
-// Importamos los módulos necesarios de Angular
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
-/**
- * Interfaz para un Gasto
- */
 export interface Gasto {
   id: number;
   descripcion: string;
@@ -12,53 +10,37 @@ export interface Gasto {
   fecha: string;
 }
 
-/**
- * Servicio de Gastos
- * - Gestiona la lista de gastos y permite añadir, eliminar y listar gastos.
- */
 @Injectable({
   providedIn: 'root'
 })
 export class GastosService {
+  private apiUrl = 'http://localhost:3000/gastos';
 
-  // Lista de gastos utilizando signal para reactividad
-  private gastos = signal<Gasto[]>([]);
+  // Fuente de la verdad: BehaviorSubject que expone la lista de gastos
+  private gastosSubject = new BehaviorSubject<Gasto[]>([]);
+  public gastos$ = this.gastosSubject.asObservable();
 
-  /**
-   * Obtiene la lista completa de gastos
-   */
-  getGastos(): Gasto[] {
-    return this.gastos();
+  constructor(private http: HttpClient) {}
+
+  // 1) Carga todos los gastos desde el servidor
+  loadGastos(): void {
+    this.http.get<Gasto[]>(this.apiUrl)
+      .subscribe(lista => this.gastosSubject.next(lista));
   }
 
-  /**
-   * Añade un nuevo gasto a la lista
-   * @param gasto - Objeto Gasto a añadir
-   */
-  addGasto(gasto: Partial<Gasto>): void {
-    const nuevoGasto: Gasto = {
-      id: Date.now(),
-      descripcion: gasto.descripcion || '',
-      categoria: gasto.categoria || '',
-      importe: gasto.importe || 0,
-      fecha: gasto.fecha || ''
-    };
-
-    console.log('Añadiendo gasto:', nuevoGasto);
-
-    // Actualizamos la lista de gastos
-    this.gastos.set([...this.gastos(), nuevoGasto]);
+  // 2) Añade un gasto y recarga la lista
+  addGasto(gasto: Omit<Gasto, 'id'>): Observable<Gasto> {
+    return this.http.post<Gasto>(this.apiUrl, gasto)
+      .pipe(
+        tap(() => this.loadGastos())
+      );
   }
 
-  /**
-   * Elimina un gasto por su ID
-   * @param id - ID del gasto a eliminar
-   */
-  deleteGasto(id: number): void {
-    console.log('Eliminando gasto con ID:', id);
-
-    // Filtramos la lista de gastos eliminando el gasto con el ID especificado
-    const gastosActualizados = this.gastos().filter(gasto => gasto.id !== id);
-    this.gastos.set(gastosActualizados);
+  // 3) Elimina un gasto por ID y recarga la lista
+  deleteGasto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
+      .pipe(
+        tap(() => this.loadGastos())
+      );
   }
 }
