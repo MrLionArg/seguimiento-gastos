@@ -1,11 +1,8 @@
 <h2>Lista de Gastos</h2>
 
-<!-- Formulario de filtros reactivo -->
+<!-- Filtros y orden -->
 <form [formGroup]="filterForm" class="filtros">
-  <input
-    formControlName="busqueda"
-    placeholder="🔍 Buscar descripción"
-  />
+  <input formControlName="busqueda" placeholder="🔍 Buscar descripción" />
 
   <select formControlName="categoria">
     <option value="">Todas las categorías</option>
@@ -20,13 +17,31 @@
     Desde:
     <input type="date" formControlName="fechaInicio" />
   </label>
-
   <label>
     Hasta:
     <input type="date" formControlName="fechaFin" />
   </label>
+
+  <input
+    type="number"
+    formControlName="importeMin"
+    placeholder="Importe ≥"
+    min="0"
+  />
+  <input
+    type="number"
+    formControlName="importeMax"
+    placeholder="Importe ≤"
+    min="0"
+  />
+
+  <select formControlName="sortBy">
+    <option value="fecha">Ordenar por Fecha</option>
+    <option value="importe">Ordenar por Importe</option>
+  </select>
 </form>
 
+<!-- Lista de gastos filtrados y ordenados -->
 <ul *ngIf="gastosFiltrados.length > 0; else sinGastos">
   <li *ngFor="let gasto of gastosFiltrados; trackBy: trackById">
     {{ gasto.descripcion }} — {{ gasto.importe | currency:'EUR' }}

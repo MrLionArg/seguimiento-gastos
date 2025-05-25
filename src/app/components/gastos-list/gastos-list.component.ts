@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForOf, NgIf, CurrencyPipe } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { combineLatest, Subscription, startWith } from 'rxjs';
+
 import { GastosService, Gasto } from '../../core/services/gastos.service';
 
 @Component({
@@ -12,10 +13,7 @@ import { GastosService, Gasto } from '../../core/services/gastos.service';
   styleUrls: ['./gastos-list.component.css']
 })
 export class GastosListComponent implements OnInit, OnDestroy {
-  // Formulario reactivo de filtros
   filterForm!: FormGroup;
-
-  // Lista resultante tras aplicar filtros
   gastosFiltrados: Gasto[] = [];
   private sub!: Subscription;
 
@@ -25,18 +23,21 @@ export class GastosListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // 1) Definimos el formulario de filtros
+    // 1) Inicializar Reactive Form con todos los filtros y la opción de orden
     this.filterForm = this.fb.group({
-      categoria: [''],
       busqueda: [''],
+      categoria: [''],
       fechaInicio: [''],
-      fechaFin: ['']
+      fechaFin: [''],
+      importeMin: [''],
+      importeMax: [''],
+      sortBy: ['fecha']  // 'fecha' o 'importe'
     });
 
-    // 2) Cargamos los datos iniciales
+    // 2) Cargar la lista inicial desde el servidor/mock API
     this.gastosService.loadGastos();
 
-    // 3) Combinamos el stream de gastos con el de cambios en los filtros
+    // 3) Combinar el stream de gastos con los cambios del formulario de filtros
     const filtros$ = this.filterForm.valueChanges.pipe(
       startWith(this.filterForm.value)
     );
@@ -44,8 +45,8 @@ export class GastosListComponent implements OnInit, OnDestroy {
     this.sub = combineLatest([
       this.gastosService.gastos$,
       filtros$
-    ]).subscribe(([gastos, filtros]) => {
-      this.gastosFiltrados = this.aplicarFiltros(gastos, filtros);
+    ]).subscribe(([lista, filtros]) => {
+      this.gastosFiltrados = this.aplicarFiltrosYOrdenar(lista, filtros);
     });
   }
 
@@ -57,33 +58,44 @@ export class GastosListComponent implements OnInit, OnDestroy {
     this.gastosService.deleteGasto(id).subscribe();
   }
 
-  /** Aplica los criterios recibidos sobre la lista completa */
-  private aplicarFiltros(lista: Gasto[], filtros: any): Gasto[] {
-    return lista.filter(gasto => {
-      const { categoria, busqueda, fechaInicio, fechaFin } = filtros;
-      const coincideCategoria = categoria
-        ? gasto.categoria === categoria
+  /** Aplica filtros de descripción, categoría, fechas e importes, y luego ordena */
+  private aplicarFiltrosYOrdenar(lista: Gasto[], f: any): Gasto[] {
+    const {
+      busqueda,
+      categoria,
+      fechaInicio,
+      fechaFin,
+      importeMin,
+      importeMax,
+      sortBy
+    } = f;
+
+    let resultado = lista.filter(g => {
+      const okDesc = busqueda
+        ? g.descripcion.toLowerCase().includes(busqueda.toLowerCase())
         : true;
-      const coincideBusqueda = busqueda
-        ? gasto.descripcion.toLowerCase()
-            .includes(busqueda.toLowerCase())
-        : true;
-      const coincideFechaInicio = fechaInicio
-        ? gasto.fecha >= fechaInicio
-        : true;
-      const coincideFechaFin = fechaFin
-        ? gasto.fecha <= fechaFin
-        : true;
-      return (
-        coincideCategoria &&
-        coincideBusqueda &&
-        coincideFechaInicio &&
-        coincideFechaFin
-      );
+      const okCat = categoria ? g.categoria === categoria : true;
+      const okFechaIni = fechaInicio ? g.fecha >= fechaInicio : true;
+      const okFechaFin = fechaFin ? g.fecha <= fechaFin : true;
+      const okImpMin = importeMin ? g.importe >= +importeMin : true;
+      const okImpMax = importeMax ? g.importe <= +importeMax : true;
+      return okDesc && okCat && okFechaIni && okFechaFin && okImpMin && okImpMax;
     });
+
+    // Ordenar según selección
+    resultado = resultado.sort((a, b) => {
+      if (sortBy === 'importe') {
+        return b.importe - a.importe;       // mayor primero
+      } else {
+        return new Date(b.fecha).getTime()  // más reciente primero
+             - new Date(a.fecha).getTime();
+      }
+    });
+
+    return resultado;
   }
 
-  trackById(index: number, gasto: Gasto): number {
+  trackById(_: number, gasto: Gasto): number {
     return gasto.id;
   }
 }
