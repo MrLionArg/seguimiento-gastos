@@ -41,7 +41,7 @@
   </select>
 </form>
 
-<!-- Lista de gastos filtrados y ordenados -->
+<!-- lista de gastos filtrados y ordenados por criterio -->
 <ul *ngIf="gastosFiltrados.length > 0; else sinGastos">
   <li *ngFor="let gasto of gastosFiltrados; trackBy: trackById">
     {{ gasto.descripcion }} — {{ gasto.importe | currency:'EUR' }}

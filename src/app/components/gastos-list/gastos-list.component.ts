@@ -10,7 +10,6 @@ import { GastosService, Gasto } from '../../core/services/gastos.service';
   standalone: true,
   imports: [NgForOf, NgIf, CurrencyPipe, ReactiveFormsModule],
   templateUrl: './gastos-list.component.html',
-  styleUrls: ['./gastos-list.component.css']
 })
 export class GastosListComponent implements OnInit, OnDestroy {
   filterForm!: FormGroup;
@@ -23,7 +22,7 @@ export class GastosListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // 1) Inicializar Reactive Form con todos los filtros y la opción de orden
+    // inicio el formulario reactivo con todos los filtros y la opción de orden
     this.filterForm = this.fb.group({
       busqueda: [''],
       categoria: [''],
@@ -31,13 +30,13 @@ export class GastosListComponent implements OnInit, OnDestroy {
       fechaFin: [''],
       importeMin: [''],
       importeMax: [''],
-      sortBy: ['fecha']  // 'fecha' o 'importe'
+      sortBy: ['fecha']  // criterio de 'fecha' o 'importe'
     });
 
-    // 2) Cargar la lista inicial desde el servidor/mock API
+    // cargar la lista inicial desde el servidor
     this.gastosService.loadGastos();
 
-    // 3) Combinar el stream de gastos con los cambios del formulario de filtros
+    // para combinar el pipe de gastos con los cambios de filtros
     const filtros$ = this.filterForm.valueChanges.pipe(
       startWith(this.filterForm.value)
     );
@@ -58,7 +57,7 @@ export class GastosListComponent implements OnInit, OnDestroy {
     this.gastosService.deleteGasto(id).subscribe();
   }
 
-  /** Aplica filtros de descripción, categoría, fechas e importes, y luego ordena */
+  // aplico los filtros de descripción, categoría, fechas e importes, y luego ordeno
   private aplicarFiltrosYOrdenar(lista: Gasto[], f: any): Gasto[] {
     const {
       busqueda,
@@ -82,7 +81,7 @@ export class GastosListComponent implements OnInit, OnDestroy {
       return okDesc && okCat && okFechaIni && okFechaFin && okImpMin && okImpMax;
     });
 
-    // Ordenar según selección
+    // ordeno según selección
     resultado = resultado.sort((a, b) => {
       if (sortBy === 'importe') {
         return b.importe - a.importe;       // mayor primero

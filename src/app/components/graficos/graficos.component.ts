@@ -10,7 +10,7 @@ import {
 import { Subscription }                     from 'rxjs';
 import { GastosService, Gasto }             from '../../core/services/gastos.service';
 
-// Register all Chart.js features (controllers, elements, scales, plugins…)
+// registra todos los features de chart.js (controladores, elementoss, escalas, plugins, etc.)
 Chart.register(...registerables);
 
 @Component({
@@ -18,13 +18,12 @@ Chart.register(...registerables);
   standalone: true,
   imports: [CommonModule, BaseChartDirective],
   templateUrl: './graficos.component.html',
-  styleUrls: ['./graficos.component.css']
 })
 export class GraficosComponent implements OnInit, OnDestroy {
   private sub!: Subscription;
   gastos: Gasto[] = [];
 
-  // 🍰 Pie chart config
+  // gRáfico de torta XD (Aprendí a poner emojis) 🍰
   public pieChartData: ChartConfiguration<'pie'>['data'] = {
     labels: [],
     datasets: [{ data: [], label: 'Gasto por categoría' }]
@@ -34,7 +33,7 @@ export class GraficosComponent implements OnInit, OnDestroy {
     responsive: true
   };
 
-  // 📈 Line chart config
+  // gráfico de líneas por mes 📈
   public lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
     datasets: [{ data: [], label: 'Gasto mensual', fill: false }]
@@ -47,13 +46,13 @@ export class GraficosComponent implements OnInit, OnDestroy {
   constructor(private gastosService: GastosService) {}
 
   ngOnInit(): void {
-    // Subscribe to gastos$ and recalc both charts on change
+    // toma de gastos y edita los dos gráficos
     this.sub = this.gastosService.gastos$.subscribe(list => {
       this.gastos = list;
       this.updatePieData();
       this.updateLineData();
     });
-    // Initial load
+    // carga inicial del servicio
     this.gastosService.loadGastos();
   }
 
@@ -75,7 +74,7 @@ export class GraficosComponent implements OnInit, OnDestroy {
 
   private updateLineData(): void {
     const totals = this.gastos.reduce((acc, g) => {
-      const m = g.fecha.slice(0, 7); // “YYYY-MM”
+      const m = g.fecha.slice(0, 7); // estilo de año y mes modelo “YYYY-MM”
       acc[m] = (acc[m] || 0) + g.importe;
       return acc;
     }, {} as Record<string, number>);

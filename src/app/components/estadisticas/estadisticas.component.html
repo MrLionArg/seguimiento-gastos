@@ -1,14 +1,31 @@
+<!-- Título de la sección -->
 <h2>Estadísticas de Gastos</h2>
 
+<!-- Si hay al menos un gasto, se muestra las estadísticas -->
 <div *ngIf="gastos.length > 0; else sinDatos">
-  <p><strong>Total gastado este mes:</strong> {{ totalMensual | currency:'EUR' }}</p>
-  <p><strong>Gasto más reciente:</strong>
-    {{ gastoReciente?.descripcion }} — 
-    {{ gastoReciente?.importe | currency:'EUR' }} ({{ gastoReciente?.fecha }})
+  
+  <!-- total gastado este mes -->
+  <p>
+    <strong>Total gastado este mes:</strong>
+    {{ totalMensual | currency:'EUR' }}
   </p>
-  <p><strong>Promedio diario:</strong> {{ promedioDiario | currency:'EUR' }}</p>
+  
+  <!-- Información del gasto más reciente -->
+  <p>
+    <strong>Gasto más reciente:</strong>
+    {{ gastoReciente?.descripcion }} —
+    {{ gastoReciente?.importe | currency:'EUR' }}
+    ({{ gastoReciente?.fecha }})
+  </p>
+  
+  <!--  meustra el promedio diario de gastos -->
+  <p>
+    <strong>Promedio diario:</strong>
+    {{ promedioDiario | currency:'EUR' }}
+  </p>
 </div>
 
+<!-- si no hay nada que mostrar... -->
 <ng-template #sinDatos>
   <p>Aún no hay datos para mostrar estadísticas.</p>
 </ng-template>

@@ -8,7 +8,6 @@ import { GastosService } from '../../core/services/gastos.service';
   standalone: true,
   imports: [ReactiveFormsModule, NgIf],
   templateUrl: './gasto-form.component.html',
-  styleUrls: ['./gasto-form.component.css']
 })
 export class GastoFormComponent {
   gastoForm: FormGroup;

@@ -1,6 +1,6 @@
 <h2>Filtros de Gastos</h2>
 
-<!-- Filtro por categoría -->
+<!-- filtro por categoría -->
 <div>
   <label for="categoria">Categoría:</label>
   <select id="categoria" [(ngModel)]="categoriaSeleccionada">
@@ -13,7 +13,7 @@
   </select>
 </div>
 
-<!-- Filtro por rango de fechas -->
+<!-- filtro por rango de fechas -->
 <div>
   <label for="fechaInicio">Desde:</label>
   <input id="fechaInicio" type="date" [(ngModel)]="fechaInicio" />
@@ -22,11 +22,11 @@
   <input id="fechaFin" type="date" [(ngModel)]="fechaFin" />
 </div>
 
-<!-- Filtro por búsqueda de descripción -->
+<!-- Filtro de búsqueda por descripción -->
 <div>
   <label for="busqueda">Buscar por descripción:</label>
   <input id="busqueda" type="text" [(ngModel)]="busqueda" />
 </div>
 
-<!-- Botón para aplicar los filtros -->
+<!-- botón para aplicar los filtros de arriba -->
 <button (click)="aplicarFiltros()">Aplicar Filtros</button>

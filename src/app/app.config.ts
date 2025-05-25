@@ -2,6 +2,5 @@
 import { Provider } from '@angular/core';
 
 export const appConfig = {
-  // Aquí puedes añadir otros providers (interceptors, tokens, etc)
   providers: [] as Provider[]
 };

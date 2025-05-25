@@ -11,19 +11,27 @@ import { GastosService, Gasto } from '../../core/services/gastos.service';
   styleUrls: ['./estadisticas.component.css']
 })
 export class EstadisticasComponent implements OnInit, OnDestroy {
+  // acá se inicia un lote vacío para almacenar los gastos recibidos
   gastos: Gasto[] = [];
+  // para guardar la suma de los gastos del mes actual
   totalMensual: number = 0;
+  //  almacena el gasto con la fecha más reciente
   gastoReciente: Gasto | null = null;
+  // esto sirve para calcular el promedio diario de gastos
   promedioDiario: number = 0;
 
+  // Suscripción que escucha cambios en la lista de gastos
   private sub!: Subscription;
 
-  constructor(private gastosService: GastosService) {}
+  constructor(private gastosService: GastosService) {
+    // se inyecta el servicio para acceder a los datos de gastos
+  }
 
   ngOnInit(): void {
-    // Cálculo de lista de gastos para estadísticas
+    // Se suscribe al flujo de gastos para actualizar las estadísticas automáticamente
     this.sub = this.gastosService.gastos$.subscribe(lista => {
       this.gastos = lista;
+      // acá llamo al cálculo de estadísticas cada vez que cambian los datos
       this.calcularEstadisticas();
     });
   }
@@ -32,7 +40,9 @@ export class EstadisticasComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  // total mensual, gasto reciente y el promedio de gasto diario
   private calcularEstadisticas(): void {
+    // aquí se verigicia si no hay gastos para inicializar todo a cero
     if (this.gastos.length === 0) {
       this.totalMensual = 0;
       this.gastoReciente = null;
@@ -40,18 +50,25 @@ export class EstadisticasComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Total del mes actual
+    // filtros de gastos correspondientes al mes actual
     const mesActual = new Date().getMonth();
-    const gastosDelMes = this.gastos.filter(g => new Date(g.fecha).getMonth() === mesActual);
+    const gastosDelMes = this.gastos.filter(g =>
+      new Date(g.fecha).getMonth() === mesActual
+    );
+    // Esto sirve para obtener la suma de importes de este mes
     this.totalMensual = gastosDelMes.reduce((sum, g) => sum + g.importe, 0);
 
-    // Gasto más reciente
-    this.gastoReciente = this.gastos.reduce((latest, g) =>
-      new Date(g.fecha) > new Date(latest.fecha) ? g : latest
-    , this.gastos[0]);
+    // Se busca el gasto más reciente comparando fechas
+    this.gastoReciente = this.gastos.reduce((ultimo, g) =>
+      new Date(g.fecha) > new Date(ultimo.fecha) ? g : ultimo,
+      this.gastos[0]
+    );
 
-    // Promedio diario (solo días con al menos un gasto)
-    const diasConGasto = new Set(this.gastos.map(g => g.fecha)).size;
-    this.promedioDiario = +(this.gastos.reduce((sum, g) => sum + g.importe, 0) / diasConGasto).toFixed(2);
+    // para saber cuántos días únicos tienen al menos un gasto
+    const diasUnicos = new Set(this.gastos.map(g => g.fecha)).size;
+    // calculo el promedio diario con formato de dos decimales
+    this.promedioDiario = +(
+      this.gastos.reduce((sum, g) => sum + g.importe, 0) / diasUnicos
+    ).toFixed(2);
   }
 }

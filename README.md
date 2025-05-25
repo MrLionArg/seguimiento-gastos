@@ -17,7 +17,7 @@ Este proyecto es una aplicación web creada con Angular 19 para que cualquier pe
 	•	Visualizar gráficos interactivos: un pastel de categorías y una línea de evolución mensual.
 	•	Iniciar sesión con un usuario y contraseña sencillos, para que solo quien tenga credenciales vea los datos.
 
-Es una herramienta intuitiva, responsive y pensada para aprender las buenas prácticas de Angular.
+Es una herramienta intuitiva y pensada para aprender las buenas prácticas de Angular.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -37,7 +37,7 @@ seguimiento-gastos/
 │       │   │   └── auth.service.ts
 │       │   └── guards/
 │       │       └── auth.guard.ts
-│       ├── components/   # Componentes standalone
+│       ├── components/   # Componentes principales
 │       │   ├── gasto-form/
 │       │   ├── gastos-list/
 │       │   ├── estadisticas/
@@ -45,12 +45,12 @@ seguimiento-gastos/
 │       │   ├── login/
 │       │   └── not-found/
 │       ├── pages/
-│       │   └── home/     # Página principal
-│       ├── app.routes.ts # Definición de rutas y guard
-│       └── app.component.ts/html # Root con <router-outlet>
+│       │   └── home/
+│       ├── app.routes.ts
+│       └── app.component.ts/html
 └── README.md            
 
-Cada carpeta agrupa un área de responsabilidad: backend simulado, servicios, guardias, componentes y la página principal.
+Cada carpeta agrupa un área de responsabilidad: "backend" simulado, servicios, el authGuard, los componentes y la página principal.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -61,7 +61,7 @@ Como desarrollador junior, buscaba:
 	2.	Practicar formulario reactivo para crear y editar datos.
 	3.	Aprender guards y navegación con rutas.
 	4.	Trabajar con gráficos "reales" usando Chart.js.
-	5.	Diseñar un estilo global para los componentes por si fallan los estilos "seguros" de cada uno
+	5.	Diseñar un estilo global para los componentes sin utilizar carga de código innecesaria o aplicada a cada componente
 
 Highlight::: La meta era unificar esas piezas en una app pequeña pero completa con base a lo que nos pidieron 
 
@@ -81,12 +81,12 @@ Highlight::: La meta era unificar esas piezas en una app pequeña pero completa 
 
 ::: Estructura de componentes
 	•	GastoFormComponent: formulario reactivo para crear y editar.
-	•	GastosListComponent: lista, filtros y orden.
-	•	EstadisticasComponent: cálculos numéricos.
+	•	GastosListComponent: lista, filtros y orden de resultados.
+	•	EstadisticasComponent: cálculos numéricos de "estadísticas" básico.
 	•	GraficosComponent: gráficos con ng2-charts.
-	•	LoginComponent: formulario de autenticación.
+	•	LoginComponent: formulario de autenticación en un login simple.
 	•	NotFoundComponent: fallback de rutas no encontradas.
-	•	HomeComponent: coordina form, stats, charts y lista.
+	•	HomeComponent: coordina form, stats, charts y lista de gastos.
 
 Highlight::: Todos son "standalone" para simplificar el módulo principal, por lo que pude leer en la documentación y en el "help" de la consola. Standalone como booleano.
 
@@ -134,5 +134,13 @@ Lo que he aprendido del curso, más la ayuda de un amigo desarrollador y las exp
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+::: Argumentario
+
+Este proyecto es una aplicación web creada con Angular 19 para que cualquier persona pueda:
+	•	Añadir, editar y eliminar sus gastos diarios.
+	•	Filtrar y ordenar 
+
 
 ¡Gracias por leer! Cualquier duda o mejora, totalmente bienvenida (Sé que son muchas...)

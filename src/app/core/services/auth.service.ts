@@ -10,12 +10,12 @@ interface Credencial {
 export class AuthService {
   private loggedIn$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
 
-  // Lista de usuarios válidos (hardcodeado fuerte, porque no sé otra forma XD)
+  // aquí puedo volcar la lista de usuarios válidos (hardcodeado fuerte, porque no sé otra forma XD)
   private validUsers: Credencial[] = [
     { username: 'admin', password: 'password' },
   ];
 
-  /* Me simula una llamada de autenticación para el login, y pasa si (username,password) coincide con alguno de validUsers. */
+  // esto me simula una llamada de autenticación para el login, y pasa si (username,password) coincide con alguno de validUsers
   login(username: string, password: string): Observable<boolean> {
     return new Observable(observer => {
       const match = this.validUsers.find(
