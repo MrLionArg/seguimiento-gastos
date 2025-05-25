@@ -1,8 +1,7 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+// src/app/app.config.ts
+import { Provider } from '@angular/core';
 
-import { routes } from './app.routes';
-
-export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+export const appConfig = {
+  // Aquí puedes añadir otros providers (interceptors, tokens, etc)
+  providers: [] as Provider[]
 };

@@ -1,0 +1,16 @@
+.not-found {
+  text-align: center;
+  padding: 2rem;
+  color: #ccc;
+}
+.not-found h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.not-found a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+  display: inline-block;
+}

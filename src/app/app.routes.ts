@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent }  from './pages/home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
-export const routes: Routes = [
-  { path: '', component: HomeComponent },
+export const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
