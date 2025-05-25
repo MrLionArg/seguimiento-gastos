@@ -55,6 +55,13 @@
       "categoria": "Ocio",
       "importe": 645,
       "fecha": "2025-04-11"
+    },
+    {
+      "id": "88f4",
+      "descripcion": "asdasdasdasd",
+      "categoria": "Alimentación",
+      "importe": 122,
+      "fecha": "2025-05-07"
     }
   ]
 }
