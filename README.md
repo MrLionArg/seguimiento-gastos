@@ -1,14 +1,15 @@
 Seguimiento de Gastos Personales
+
 Proyecto final de Angular
 
 Federico Gabriel Dion
 Bootcamp Upgrade2025
-Asignatura Angular
-Profesor David Verduin Cortés
+Asignatura: Angular
+Profesor: David Verduin Cortés
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::: ¿Qué es este proyecto?
+¿Qué es este proyecto?
 
 Este proyecto es una aplicación web creada con Angular 19 para que cualquier persona pueda:
 	•	Añadir, editar y eliminar sus gastos diarios.
@@ -21,23 +22,23 @@ Es una herramienta intuitiva y pensada para aprender las buenas prácticas de An
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::: Estructura planteada
+Estructura planteada
 
 seguimiento-gastos/
-├── db.json               # Base de datos BBDD simulada (json-server)
+├── db.json               # Base de datos simulada (json-server)
 ├── package.json          # Dependencias y scripts de proyecto
-├── angular.json          # Configuración de Angular CLI (console log interface)
+├── angular.json          # Configuración de Angular CLI
 ├── src/
-│   ├── main.ts           # Charts y Router para el HttpClient
-│   ├── styles.css        # Estilos globales y responsive (en lo posible)
+│   ├── main.ts           # Bootstrap de Charts y Router
+│   ├── styles.css        # Estilos globales y responsive
 │   └── app/
-│       ├── core/         # Servicios y authGuard
+│       ├── core/         # Servicios y guards
 │       │   ├── services/
 │       │   │   └── gastos.service.ts
 │       │   │   └── auth.service.ts
 │       │   └── guards/
 │       │       └── auth.guard.ts
-│       ├── components/   # Componentes principales
+│       ├── components/   # Componentes principales (standalone)
 │       │   ├── gasto-form/
 │       │   ├── gastos-list/
 │       │   ├── estadisticas/
@@ -46,26 +47,26 @@ seguimiento-gastos/
 │       │   └── not-found/
 │       ├── pages/
 │       │   └── home/
-│       ├── app.routes.ts
-│       └── app.component.ts/html
-└── README.md            
+│       ├── app.routes.ts # Definición de rutas
+│       └── app.component.ts/html # Root con <router-outlet>
+└── README.md            # Descripción y guías
 
-Cada carpeta agrupa un área de responsabilidad: "backend" simulado, servicios, el authGuard, los componentes y la página principal.
+Cada carpeta agrupa un área de responsabilidad: backend simulado, servicios, guardias, componentes y la página principal.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::: Idea detrás
+Idea detrás
 
 Como desarrollador junior, buscaba:
-	1.	Entender el flujo completo: de la UI al servicio, del servicio al "backend" (de internet, mock-backend) y vuelta.
-	2.	Practicar formulario reactivo para crear y editar datos.
+	1.	Entender el flujo completo: de la UI al servicio, del servicio al “backend” y vuelta.
+	2.	Practicar formularios reactivos para crear y editar datos.
 	3.	Aprender guards y navegación con rutas.
-	4.	Trabajar con gráficos "reales" usando Chart.js.
-	5.	Diseñar un estilo global para los componentes sin utilizar carga de código innecesaria o aplicada a cada componente
+	4.	Trabajar con gráficos reales usando Chart.js.
+	5.	Diseñar un estilo global sin cargar código innecesario en cada componente.
 
-Highlight::: La meta era unificar esas piezas en una app pequeña pero completa con base a lo que nos pidieron 
+Highlight: La meta era unificar esas piezas en una app pequeña pero completa.
 
-::: Funcionamiento y funcionalidades creadas
+Funcionamiento y funcionalidades creadas
 	1.	Autenticación: Pantalla de login. Solo admin/password funcionan.
 	2.	CRUD de gastos:
 	•	Crear: Rellenar formulario y pulsar “Añadir”.
@@ -79,20 +80,20 @@ Highlight::: La meta era unificar esas piezas en una app pequeña pero completa 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::: Estructura de componentes
+Estructura de componentes
 	•	GastoFormComponent: formulario reactivo para crear y editar.
 	•	GastosListComponent: lista, filtros y orden de resultados.
-	•	EstadisticasComponent: cálculos numéricos de "estadísticas" básico.
+	•	EstadisticasComponent: cálculos numéricos básicos.
 	•	GraficosComponent: gráficos con ng2-charts.
-	•	LoginComponent: formulario de autenticación en un login simple.
+	•	LoginComponent: formulario de autenticación.
 	•	NotFoundComponent: fallback de rutas no encontradas.
 	•	HomeComponent: coordina form, stats, charts y lista de gastos.
 
-Highlight::: Todos son "standalone" para simplificar el módulo principal, por lo que pude leer en la documentación y en el "help" de la consola. Standalone como booleano.
+Todos son standalone para simplificar el módulo principal.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::: Cómo descargar y ejecutar
+Cómo descargar y ejecutar
 	1.	Clonar el repositorio:
 
 git clone https://github.com/MrLionArg/seguimiento-gastos.git
@@ -104,43 +105,59 @@ cd seguimiento-gastos
 npm install
 
 
-	3.	Iniciar json-server (mock-backend como dije más arriba):
+	3.	Iniciar json-server (mock-backend):
 
 npx json-server --watch db.json --port 3000
 
-	•	Esto crea http://localhost:3000/gastos.
+Esto crea http://localhost:3000/gastos.
 
-	4.	En otra terminal (de la carpeta del proyecto), levantar la app Angular:
+	4.	En otra terminal, arrancar la app Angular:
 
 ng serve -o
 
-	•	Se abrirá http://localhost:4200 en tu navegador.
+Se abrirá http://localhost:4200.
 
-	5.	Login con usuario (admin) y contraseña (password) en este caso es esta la única que funciona.
-	6.	Anotar gastos, borrar, filtrar
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-::: Por qué estas tecnologías y estructura, me preguntarás...
-Lo que he aprendido del curso, más la ayuda de un amigo desarrollador y las explicaciones de videos de youtube, me han indicado que:
-
-	•	Angular 19 con componente standalone: reduce la complejidad de los NgModules y aprovecha lo último del framework (últimos updates).
-	•	ReactiveForms: validaciones declarativas y facilidad para editar datos, y esto lo vimos mucho en clase.
-	•	BehaviorSubject + RxJS: flujo reactivo entre servicio y componentes; lo aprendí con internet sinceramente para poder aplicarlo.
-	•	json-server: mock-backend rápido sin escribir Node, y repito... en internet le llaman "mock-backend" y realmente es una emulación de BBDD.
-	•	Chart.js + ng2-charts: gráficos sencillos... "sencillos" si bien me costó muchísimo, y no son responsive porque cada vez que intenté, rompí todo.
-	•	CSS Grid + Flexbox: diseño con estilos base sin frameworks externos y sin importaciones de librerías para esto.
-	•	AuthGuard: pequeña aplicación de este tema que vimos en clase, realmente importante, y con un user base, para que tenga cierta layer de seguridad el proyect.
-
+	5.	Login con admin/password.
+	6.	Añadir, editar, filtrar y explorar gastos.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+Por qué estas tecnologías y estructura
 
-::: Argumentario
+Aunque gran parte salió del curso, también usé:
+	•	json-server: para simular el backend sin Node real.
+	•	Chart.js + ng2-charts: fáciles de integrar y potentes para visualizar datos.
+	•	Standalone Components: simplifica imports y evita declarar módulos.
+	•	BehaviorSubject + RxJS: fluidez de datos reactiva en todo el proyecto.
+	•	CSS Grid + Flexbox: sin frameworks externos, solo CSS puro.
+	•	AuthGuard: añade un nivel de seguridad con una ruta de login.
 
-Este proyecto es una aplicación web creada con Angular 19 para que cualquier persona pueda:
-	•	Añadir, editar y eliminar sus gastos diarios.
-	•	Filtrar y ordenar 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+Argumentario y experiencias
 
-¡Gracias por leer! Cualquier duda o mejora, totalmente bienvenida (Sé que son muchas...)
+Mi experiencia y dificultades
+	•	No entendía al principio cómo actualizar la vista cuando cambiaban los datos.
+	•	Comparar fechas para identificar el último gasto fue un reto.
+	•	Los errores de TypeScript y Angular me confundían sobre la causa real.
+	•	Ajustar gráficos en móvil me llevó varios intentos con media queries.
+
+Lo que tuve que pedir ayuda
+	•	Configurar json-server para el archivo correcto.
+	•	Corregir la ruta de importación en AuthGuard.
+	•	Añadir CommonModule y ReactiveFormsModule en LoginComponent.
+	•	Acceder a controles de formulario con loginForm.get(...).
+	•	Ajustar CSS para que los gráficos no desbordaran.
+
+Lo que hice guiándome en el curso
+	•	Formularios reactivos con validaciones básicas.
+	•	Servicio de gastos con HttpClient y BehaviorSubject.
+	•	CRUD completo: GET, POST, PUT y DELETE.
+	•	Estadísticas con filter y reduce.
+	•	Gráficos con <canvas baseChart>.
+	•	Rutas protegidas con AuthGuard.
+
+¡Gracias por leer! Cualquier duda o mejora, ¡bienvenida!
+
+Saludos,
+Federico Gabriel Dion
