@@ -1,3 +1,60 @@
 {
-  "gastos": []
+  "gastos": [
+    {
+      "id": "0f17",
+      "descripcion": "123123123",
+      "categoria": "Salud",
+      "importe": 234,
+      "fecha": "2025-05-17"
+    },
+    {
+      "id": "559d",
+      "descripcion": "dasdasd",
+      "categoria": "Salud",
+      "importe": 223,
+      "fecha": "2025-05-19"
+    },
+    {
+      "id": "b369",
+      "descripcion": "asdasdasd",
+      "categoria": "Alimentación",
+      "importe": 232,
+      "fecha": "2025-06-06"
+    },
+    {
+      "id": "df10",
+      "descripcion": "qweqw12",
+      "categoria": "Salud",
+      "importe": 245,
+      "fecha": "2025-07-04"
+    },
+    {
+      "id": "2026",
+      "descripcion": "32423432",
+      "categoria": "Salud",
+      "importe": 345,
+      "fecha": "2025-04-29"
+    },
+    {
+      "id": "7255",
+      "descripcion": "1223213",
+      "categoria": "Transporte",
+      "importe": 456,
+      "fecha": "2025-07-12"
+    },
+    {
+      "id": "a486",
+      "descripcion": "sakjdhaskjhdkjsahd",
+      "categoria": "Alimentación",
+      "importe": 123,
+      "fecha": "2025-05-29"
+    },
+    {
+      "id": "5e71",
+      "descripcion": "3213213",
+      "categoria": "Ocio",
+      "importe": 645,
+      "fecha": "2025-04-11"
+    }
+  ]
 }
