@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { GastoFormComponent } from '../../components/gasto-form/gasto-form.component';
-import { GastosListComponent } from '../../components/gastos-list/gastos-list.component';
+import { Component }             from '@angular/core';
+import { CommonModule }          from '@angular/common';
+import { GastoFormComponent }    from '../../components/gasto-form/gasto-form.component';
 import { EstadisticasComponent } from '../../components/estadisticas/estadisticas.component';
+import { GraficosComponent }     from '../../components/graficos/graficos.component';
+import { GastosListComponent }   from '../../components/gastos-list/gastos-list.component';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +12,7 @@ import { EstadisticasComponent } from '../../components/estadisticas/estadistica
     CommonModule,
     GastoFormComponent,
     EstadisticasComponent,
+    GraficosComponent,
     GastosListComponent
   ],
   templateUrl: './home.component.html',

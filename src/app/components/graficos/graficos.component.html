@@ -1,0 +1,23 @@
+<h2>Gráficos de Gastos</h2>
+
+<div style="display:flex; gap:2rem;">
+  <!-- Pie -->
+  <div style="flex:1">
+    <canvas
+      baseChart
+      [data]="pieChartData"
+      [type]="pieChartType"
+      [options]="pieChartOptions">
+    </canvas>
+  </div>
+
+  <!-- Line -->
+  <div style="flex:1">
+    <canvas
+      baseChart
+      [data]="lineChartData"
+      [type]="lineChartType"
+      [options]="lineChartOptions">
+    </canvas>
+  </div>
+</div>
