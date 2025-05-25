@@ -126,10 +126,10 @@ Por qué estas tecnologías y estructura
 
 Aunque gran parte salió del curso, también usé:
 	•	json-server: para simular el backend sin Node real.
-	•	Chart.js + ng2-charts: fáciles de integrar y potentes para visualizar datos.
-	•	Standalone Components: simplifica imports y evita declarar módulos.
-	•	BehaviorSubject + RxJS: fluidez de datos reactiva en todo el proyecto.
-	•	CSS Grid + Flexbox: sin frameworks externos, solo CSS puro.
+	•	Chart.js + ng2-charts: me pareció más fácil de integrar para visualizar datos.
+	•	Standalone Components: simplifica los imports y evita declarar módulos innecesariamente.
+	•	BehaviorSubject + RxJS: entendí por videos y tutoriales, que mejora la fluidez de datos en todo el proyecto.
+	•	CSS Grid + Flexbox: sin frameworks externos, solo CSS puro, old shool o hardcodeado XD.
 	•	AuthGuard: añade un nivel de seguridad con una ruta de login.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -144,18 +144,18 @@ Mi experiencia y dificultades
 
 Lo que tuve que pedir ayuda
 	•	Configurar json-server para el archivo correcto.
-	•	Corregir la ruta de importación en AuthGuard.
+	•	Corregir la ruta de importación en AuthGuard
 	•	Añadir CommonModule y ReactiveFormsModule en LoginComponent.
-	•	Acceder a controles de formulario con loginForm.get(...).
+	•	Acceder a controles de formulario con loginForm.get(...)
 	•	Ajustar CSS para que los gráficos no desbordaran.
 
 Lo que hice guiándome en el curso
 	•	Formularios reactivos con validaciones básicas.
-	•	Servicio de gastos con HttpClient y BehaviorSubject.
-	•	CRUD completo: GET, POST, PUT y DELETE.
-	•	Estadísticas con filter y reduce.
-	•	Gráficos con <canvas baseChart>.
-	•	Rutas protegidas con AuthGuard.
+	•	Servicio de gastos con HttpClient y BehaviorSubject
+	•	CRUD completo: GET, POST, PUT y DELETE
+	•	Estadísticas con "filter" y "reduce".
+	•	Gráficos con "canvas baseChart" en parte.
+	•	Rutas protegidas con authGuard
 
 ¡Gracias por leer! Cualquier duda o mejora, ¡bienvenida!
 
